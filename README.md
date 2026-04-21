@@ -28,15 +28,12 @@ philosophy : "Build real systems, not just learn theory."
 ## `> ps aux` — *what I'm building*
 
 ### 🏗️ Self-Hosted Homelab Infrastructure
-
 Multi-node setup with Dockerized services, full monitoring stack, and remote management. Because renting servers is for people who haven't gone down the rabbit hole yet.
 
 ### 📊 Business Management Dashboard *(in progress)*
-
 `FastAPI` + `PostgreSQL` + `Next.js` — inventory, invoicing, and logistics in one system. Built for actual use, not just a portfolio checkbox.
 
 ### 🤖 AI + Automation Workflows
-
 Running local AI with `Open WebUI` + `Ollama`, and wiring up automation pipelines with `n8n`. Keeping it self-hosted, keeping it real.
 
 ---
@@ -130,12 +127,12 @@ tools:
 
 ## `> docker ps` — *systems I run*
 
-| Container                     | Description                               | Status       |
-| ----------------------------- | ----------------------------------------- | ------------ |
-| 🗃️ Containerized stacks     | Docker-based multi-service infrastructure | `running`  |
-| 📡 Self-hosted services       | Dashboards, tools, and utilities          | `running`  |
-| 📊 Monitoring & observability | Metrics, logs, alerting                   | `running`  |
-| ⚙️ Automation workflows     | Backend systems & pipelines               | `building` |
+| Container | Description | Status |
+|---|---|---|
+| 🗃️ Containerized stacks | Docker-based multi-service infrastructure | `running` |
+| 📡 Self-hosted services | Dashboards, tools, and utilities | `running` |
+| 📊 Monitoring & observability | Metrics, logs, alerting | `running` |
+| ⚙️ Automation workflows | Backend systems & pipelines | `building` |
 
 ---
 
@@ -158,9 +155,6 @@ tools:
 
 <div align="center">
 
-<a href="https://github.com/Pratham71/homalab-infrastructure">
-  <img src="https://github-readme-stats.vercel.app/api/pin/?username=Pratham71&repo=homalab-infrastructure&theme=github_dark&hide_border=true&bg_color=0d1117&title_color=64ffda&icon_color=64ffda" />
-</a>
 <a href="https://github.com/Pratham71/IEMS-ONE">
   <img src="https://github-readme-stats.vercel.app/api/pin/?username=Pratham71&repo=IEMS-ONE&theme=github_dark&hide_border=true&bg_color=0d1117&title_color=64ffda&icon_color=64ffda" />
 </a>
@@ -170,8 +164,14 @@ tools:
 <a href="https://github.com/Pratham71/innovation-growth-simulator">
   <img src="https://github-readme-stats.vercel.app/api/pin/?username=Pratham71&repo=innovation-growth-simulator&theme=github_dark&hide_border=true&bg_color=0d1117&title_color=64ffda&icon_color=64ffda" />
 </a>
-<a href="https://github.com/Pratham71/Implementation-of-Laplace-Transform-and-Fourier">
-  <img src="https://github-readme-stats.vercel.app/api/pin/?username=Pratham71&repo=Implementation-of-Laplace-Transform-and-Fourier&theme=github_dark&hide_border=true&bg_color=0d1117&title_color=64ffda&icon_color=64ffda" />
+<a href="https://github.com/Pratham71/mokyr-growth-sim">
+  <img src="https://github-readme-stats.vercel.app/api/pin/?username=Pratham71&repo=mokyr-growth-sim&theme=github_dark&hide_border=true&bg_color=0d1117&title_color=64ffda&icon_color=64ffda" />
+</a>
+<a href="https://github.com/Pratham71/Implementation-of-Laplace-Transform-and-Fourier-Series">
+  <img src="https://github-readme-stats.vercel.app/api/pin/?username=Pratham71&repo=Implementation-of-Laplace-Transform-and-Fourier-Series&theme=github_dark&hide_border=true&bg_color=0d1117&title_color=64ffda&icon_color=64ffda" />
+</a>
+<a href="https://github.com/Pratham71/Discrete-Project">
+  <img src="https://github-readme-stats.vercel.app/api/pin/?username=Pratham71&repo=Discrete-Project&theme=github_dark&hide_border=true&bg_color=0d1117&title_color=64ffda&icon_color=64ffda" />
 </a>
 
 </div>
@@ -184,7 +184,7 @@ tools:
 
 [![GitHub](https://img.shields.io/badge/GitHub-Pratham71-0d1117?style=for-the-badge&logo=github&logoColor=64ffda&labelColor=0d1117&color=64ffda)](https://github.com/Pratham71)
 
-![Visitor Badge](https://komarev.com/ghpvc/?username=Pratham71&style=for-the-badge&color=64ffda&labelColor=0d1117&label=PROFILE+VIEWS) 
+![Visitor Badge](https://komarev.com/ghpvc/?username=Pratham71&style=for-the-badge&color=64ffda&labelColor=0d1117&label=PROFILE+VIEWS)
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=0:112240,50:0a192f,100:0d1117&height=100&section=footer" width="100%"/>
 
