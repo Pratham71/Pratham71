@@ -38,41 +38,6 @@ Running local AI with `Open WebUI` + `Ollama`, and wiring up automation pipeline
 
 ---
 
-## `> cat tech_stack.yaml`
-
-```yaml
-programming:
-  - Python
-  - Java
-  - C
-
-data_and_analytics:
-  - Microsoft Excel       # data analysis, regression, pivot tables
-  - SQL                   # JOINs, GROUP BY, HAVING, aggregations
-  - PostgreSQL
-  - Relational Modeling
-  - Normalization (1NF–BCNF)
-  - Query Optimization
-
-software_engineering:
-  - OOP
-  - Modular Design
-  - API Development (FastAPI)
-
-systems_and_infrastructure:
-  - Linux (Debian)
-  - Docker
-  - Self-Hosting
-  - Homelab Infrastructure
-  - Networking Basics
-
-tools:
-  - Git
-  - Maven
-  - Bash
-  - uv
-  - Tailscale
-```
 
 <div align="center">
 
