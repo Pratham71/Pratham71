@@ -40,7 +40,7 @@ Running local AI with `Open WebUI` + `Ollama`, and wiring up automation pipeline
 
 
 <div align="center">
-
+## `> ls skills/`
 **`Programming`**
 
 ![Python](https://img.shields.io/badge/Python-0d1117?style=for-the-badge&logo=python&logoColor=3776AB)
