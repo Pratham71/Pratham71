@@ -52,6 +52,7 @@ Running local AI with `Open WebUI` + `Ollama`, and wiring up automation pipeline
 ![Excel](https://img.shields.io/badge/Microsoft_Excel-0d1117?style=for-the-badge&logo=microsoftexcel&logoColor=217346)
 ![SQL](https://img.shields.io/badge/SQL-0d1117?style=for-the-badge&logo=mysql&logoColor=4479A1)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-0d1117?style=for-the-badge&logo=postgresql&logoColor=336791)
+![MonogoDB](https://img.shields.io/badge/-MongoDB-13aa52?style=for-the-badge&logo=mongodb&logoColor=white)
 
 **`Software Engineering`**
 
