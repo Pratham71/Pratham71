@@ -38,7 +38,7 @@ Running local AI with `Open WebUI` + `Ollama`, and wiring up automation pipeline
 
 ---
 
-
+## `> ls skills/`
 <div align="center">
 
 **`Programming`**
