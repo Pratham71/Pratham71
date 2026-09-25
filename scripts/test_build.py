@@ -75,5 +75,26 @@ class DataTests(unittest.TestCase):
                          (7, 2, 2, 13, [], "2026-09-25"))
 
 
+class FontTests(unittest.TestCase):
+    def test_font_face_embeds_woff2(self):
+        css = build.font_face("abc $~@", "pm")
+        self.assertIn("font-family:pm", css)
+        self.assertIn("data:font/woff2;base64,", css)
+        self.assertLess(len(css), 20_000)
+
+    def test_missing_glyph_is_named(self):
+        with self.assertRaisesRegex(ValueError, "中"):
+            build.font_face("ok 中", "pm")
+
+    def test_name_path(self):
+        d, width = build.name_path("PRATHAM NAGPAL", 40)
+        self.assertTrue(d.startswith("M"))
+        self.assertGreater(width, 200)
+        self.assertLess(width, 780)
+
+    def test_char_w_positive(self):
+        self.assertGreater(build.char_w(14), 5)
+
+
 if __name__ == "__main__":
     unittest.main()

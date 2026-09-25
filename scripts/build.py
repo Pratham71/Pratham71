@@ -1,12 +1,21 @@
 """Build the profile README SVGs into assets/. Run: python scripts/build.py"""
+import base64
+import io
 import json
 import os
 import subprocess
 import tempfile
 import urllib.request
 import xml.etree.ElementTree as ET
+from functools import lru_cache
 from pathlib import Path
 from xml.sax.saxutils import escape
+
+from fontTools import subset
+from fontTools.pens.svgPathPen import SVGPathPen
+from fontTools.pens.transformPen import TransformPen
+from fontTools.ttLib import TTFont
+from fontTools.varLib.instancer import instantiateVariableFont
 
 ROOT = Path(__file__).resolve().parent.parent
 ASSETS = ROOT / "assets"
@@ -116,3 +125,57 @@ def summarize(user):
         "total": cal["totalContributions"], "current": current, "longest": longest,
         "repos": repos["totalCount"], "langs": lang_shares(repos["nodes"]), "updated": days[-1]["date"],
     }
+
+
+@lru_cache(maxsize=None)
+def _instance_bytes(wght, wdth):
+    buf = io.BytesIO()
+    instantiateVariableFont(TTFont(FONT), {"wght": wght, "wdth": wdth}).save(buf)
+    return buf.getvalue()
+
+
+def _font(wght, wdth):
+    return TTFont(io.BytesIO(_instance_bytes(wght, wdth)))
+
+
+def _check_glyphs(text, font):
+    cmap = font.getBestCmap()
+    missing = sorted({ch for ch in text if ch != "\n" and ord(ch) not in cmap})
+    if missing:
+        raise ValueError(f"font lacks glyphs: {missing}")
+
+
+def font_face(text, family, wght=400, wdth=100):
+    font = _font(wght, wdth)
+    _check_glyphs(text, font)
+    opts = subset.Options()
+    opts.flavor = "woff2"
+    opts.layout_features = []
+    opts.name_IDs = []
+    sub = subset.Subsetter(opts)
+    sub.populate(text="".join(sorted(set(text))))
+    sub.subset(font)
+    buf = io.BytesIO()
+    font.flavor = "woff2"
+    font.save(buf)
+    b64 = base64.b64encode(buf.getvalue()).decode()
+    return f"@font-face{{font-family:{family};src:url(data:font/woff2;base64,{b64}) format('woff2')}}"
+
+
+def char_w(size, wght=400, wdth=100):
+    font = _font(wght, wdth)
+    return font["hmtx"][font.getBestCmap()[ord("0")]][0] * size / font["head"].unitsPerEm
+
+
+def name_path(text, size, wght=800, wdth=112.5):
+    font = _font(wght, wdth)
+    _check_glyphs(text, font)
+    glyphs, cmap = font.getGlyphSet(), font.getBestCmap()
+    k = size / font["head"].unitsPerEm
+    pen = SVGPathPen(glyphs, ntos=lambda v: format(round(v, 1), "g"))
+    x = 0.0
+    for ch in text:
+        g = glyphs[cmap[ord(ch)]]
+        g.draw(TransformPen(pen, (k, 0, 0, -k, x, 0)))
+        x += g.width * k
+    return pen.getCommands(), x
