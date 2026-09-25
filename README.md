@@ -24,5 +24,5 @@ CS student at BITS Pilani Dubai. I build self-hosted infrastructure, backend ser
 
 ## `> ping me`
 
-[prathlabs.com](https://prathlabs.com)
+[www.prathlab.com](https://www.prathlab.com)
 <!-- email: add once the public address is chosen -->
