@@ -130,8 +130,34 @@ class TemplateTests(unittest.TestCase):
         self.assertIn("no language data", svg)
         build.validate(svg)
 
+    def test_stats_labels_do_not_collide(self):
+        longest = max(len(l) for l in ("contributions, last year", "current streak", "longest streak", "public repos"))
+        self.assertGreaterEqual(build.STATS_COL - longest * build.char_w(12), 16)
+
     def test_header_has_reduced_motion(self):
         self.assertIn("prefers-reduced-motion", build.render_header(build.CONTENT))
+
+
+class MainTests(unittest.TestCase):
+    def test_build_all_names(self):
+        self.assertEqual(sorted(build.build_all(STATS)),
+                         ["card-homelab.svg", "card-vessel.svg", "header.svg", "stack.svg", "stats.svg"])
+
+    def test_fetch_failure_leaves_assets_untouched(self):
+        with tempfile.TemporaryDirectory() as d:
+            old = Path(d) / "stats.svg"
+            old.write_text("previous", encoding="utf-8")
+            orig_fetch, orig_out, orig_token = build.fetch, build.OUT, build.token
+
+            def boom(*a):
+                raise RuntimeError("api down")
+            build.fetch, build.OUT, build.token = boom, Path(d), lambda: "t"
+            try:
+                with self.assertRaises(RuntimeError):
+                    build.main()
+            finally:
+                build.fetch, build.OUT, build.token = orig_fetch, orig_out, orig_token
+            self.assertEqual(old.read_text(encoding="utf-8"), "previous")
 
 
 if __name__ == "__main__":

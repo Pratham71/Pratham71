@@ -22,6 +22,8 @@ ROOT = Path(__file__).resolve().parent.parent
 ASSETS = ROOT / "assets"
 FONT = ASSETS / "fonts" / "MartianMono[wdth,wght].ttf"
 MAX_BYTES = 50_000
+OUT = ASSETS
+STATS_COL = 240  # metric column pitch in stats.svg
 
 C = {
     "ink": "#0A0D10", "panel": "#12171C", "line": "#232B33", "text": "#E6EDF3",
@@ -325,7 +327,7 @@ def render_stats(s):
         f"longest {days(s['longest'])}, {s['repos']} public repos")),
         _style(css, ".v{font-size:28px;fill:" + C["text"] + ";font-variant-numeric:tabular-nums}"), _frame(w, h)]
     for i, (value, label) in enumerate(metrics):
-        x, y = 32 + (i % 2) * 190, 64 + (i // 2) * 72
+        x, y = 32 + (i % 2) * STATS_COL, 64 + (i // 2) * 72
         out.append(f'<text class="v" x="{x}" y="{y}">{esc(value)}</text><text x="{x}" y="{y + 20}">{esc(label)}</text>')
     out.append('<text x="440" y="40">top languages</text>')
     if not langs:
@@ -343,3 +345,30 @@ def render_stats(s):
                    f'<text x="808" y="{y}" text-anchor="end">{pct}%</text>')
     out.append(f'<text x="808" y="188" font-size="11" text-anchor="end">updated {esc(s["updated"])}</text></svg>')
     return "".join(out)
+
+
+def build_all(stats):
+    c = CONTENT
+    return {
+        "header.svg": render_header(c),
+        "card-homelab.svg": render_card(c["projects"]["homelab"]),
+        "card-vessel.svg": render_card(c["projects"]["vessel"]),
+        "stack.svg": render_stack(c["stack"]),
+        "stats.svg": render_stats(stats),
+    }
+
+
+def main():
+    svgs = build_all(summarize(fetch(LOGIN, token())))
+    for name, svg in svgs.items():  # validate everything before touching disk
+        try:
+            validate(svg)
+        except ValueError as e:
+            raise ValueError(f"{name}: {e}") from e
+    for name, svg in svgs.items():
+        write_atomic(OUT / name, svg)
+        print(f"wrote {name} ({len(svg.encode()):,} bytes)")
+
+
+if __name__ == "__main__":
+    main()
