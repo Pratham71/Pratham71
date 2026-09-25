@@ -96,5 +96,43 @@ class FontTests(unittest.TestCase):
         self.assertGreater(build.char_w(14), 5)
 
 
+STATS = {"total": 412, "current": 1, "longest": 9, "repos": 13,
+         "langs": [("Python", 70.0), ("Java", 20.0), ("Shell", 10.0)], "updated": "2026-09-25"}
+
+
+class TemplateTests(unittest.TestCase):
+    def test_all_templates_valid(self):
+        c = build.CONTENT
+        for svg in (build.render_header(c), build.render_card(c["projects"]["homelab"]),
+                    build.render_card(c["projects"]["vessel"]), build.render_stack(c["stack"]),
+                    build.render_stats(STATS)):
+            build.validate(svg)
+
+    def test_card_escapes_text(self):
+        svg = build.render_card({"name": "a<b", "desc": "x & y", "lang": "C", "status": "active"})
+        self.assertIn("a&lt;b", svg)
+        self.assertIn("x &amp; y", svg)
+        build.validate(svg)
+
+    def test_card_rejects_overlong_desc(self):
+        with self.assertRaisesRegex(ValueError, "toolong"):
+            build.render_card({"name": "toolong", "desc": "word " * 60, "lang": "C", "status": "active"})
+
+    def test_unknown_status_rejected(self):
+        with self.assertRaises(ValueError):
+            build.status_mark("paused", 0, 0)
+
+    def test_days_pluralises(self):
+        self.assertEqual((build.days(0), build.days(1), build.days(2)), ("0 days", "1 day", "2 days"))
+
+    def test_stats_without_languages(self):
+        svg = build.render_stats(dict(STATS, langs=[], total=0, current=0, longest=0))
+        self.assertIn("no language data", svg)
+        build.validate(svg)
+
+    def test_header_has_reduced_motion(self):
+        self.assertIn("prefers-reduced-motion", build.render_header(build.CONTENT))
+
+
 if __name__ == "__main__":
     unittest.main()
