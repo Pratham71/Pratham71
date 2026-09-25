@@ -247,11 +247,13 @@ def render_header(c):
     name_d, name_w = name_path(c["name"], 40)
     if name_w > w - 64:
         raise ValueError(f"name is {name_w:.0f}px wide, max {w - 64}")
-    anim = ("text,.l{opacity:0;animation:in .5s cubic-bezier(.22,1,.36,1) forwards}"
-            ".bar text{opacity:1;animation:none}"
-            "@keyframes in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}"
+    # Base state is visible; `backwards` hides lines only while an animation actually runs,
+    # so renderers without CSS animation still show the finished terminal.
+    anim = ("text,.l{animation:in .5s cubic-bezier(.22,1,.36,1) backwards}"
+            ".bar text{animation:none}"
+            "@keyframes in{from{transform:translateY(4px);opacity:0}to{transform:none;opacity:1}}"
             ".cur{animation:blink 1s steps(1) infinite}@keyframes blink{50%{opacity:0}}"
-            "@media (prefers-reduced-motion:reduce){text,.l,.cur{animation:none;opacity:1}}")
+            "@media (prefers-reduced-motion:reduce){text,.l,.cur{animation:none}}")
     cw = char_w(14)
 
     def delay(i):
@@ -317,7 +319,7 @@ def render_stack(rows):
 def render_stats(s):
     w, h = 840, 200
     metrics = [(f"{s['total']:,}", "contributions, last year"), (days(s["current"]), "current streak"),
-               (days(s["longest"]), "longest streak"), (str(s["repos"]), "public repos")]
+               (days(s["longest"]), "longest streak, last year"), (str(s["repos"]), "public repos")]
     langs = s["langs"]
     text = ("".join(a + b for a, b in metrics) + "".join(f"{n}{p}%" for n, p in langs)
             + "top languagesno language dataupdated " + s["updated"])

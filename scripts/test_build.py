@@ -131,8 +131,16 @@ class TemplateTests(unittest.TestCase):
         build.validate(svg)
 
     def test_stats_labels_do_not_collide(self):
-        longest = max(len(l) for l in ("contributions, last year", "current streak", "longest streak", "public repos"))
+        longest = max(len(l) for l in ("contributions, last year", "current streak", "longest streak, last year", "public repos"))
         self.assertGreaterEqual(build.STATS_COL - longest * build.char_w(12), 16)
+
+    def test_header_text_visible_without_animation(self):
+        svg = build.render_header(build.CONTENT)
+        self.assertNotIn("opacity:0;", svg)
+        self.assertIn(" backwards", svg)
+
+    def test_longest_streak_label_scoped_to_last_year(self):
+        self.assertIn("longest streak, last year", build.render_stats(STATS))
 
     def test_header_has_reduced_motion(self):
         self.assertIn("prefers-reduced-motion", build.render_header(build.CONTENT))
