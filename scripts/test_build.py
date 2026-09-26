@@ -103,9 +103,8 @@ STATS = {"total": 412, "current": 1, "longest": 9, "repos": 13,
 class TemplateTests(unittest.TestCase):
     def test_all_templates_valid(self):
         c = build.CONTENT
-        for svg in (build.render_header(c), build.render_card(c["projects"]["homelab"]),
-                    build.render_card(c["projects"]["vessel"]), build.render_stack(c["stack"]),
-                    build.render_stats(STATS)):
+        for svg in (build.render_header(c), *(build.render_card(p) for p in c["projects"].values()),
+                    build.render_stack(c["stack"]), build.render_stats(STATS)):
             build.validate(svg)
 
     def test_card_escapes_text(self):
@@ -149,7 +148,8 @@ class TemplateTests(unittest.TestCase):
 class MainTests(unittest.TestCase):
     def test_build_all_names(self):
         self.assertEqual(sorted(build.build_all(STATS)),
-                         ["card-homelab.svg", "card-vessel.svg", "header.svg", "stack.svg", "stats.svg"])
+                         ["card-homelab.svg", "card-infirmary.svg", "card-vessel.svg", "card-ytdl.svg",
+                          "header.svg", "stack.svg", "stats.svg"])
 
     def test_fetch_failure_leaves_assets_untouched(self):
         with tempfile.TemporaryDirectory() as d:

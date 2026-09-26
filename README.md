@@ -9,7 +9,13 @@ CS student at BITS Pilani Dubai. I build self-hosted infrastructure, backend ser
 <p>
   <a href="https://github.com/Pratham71/homelab-infrastructure"><img src="assets/card-homelab.svg" width="49%" alt="homelab-infrastructure: multi-node self-hosted stack with Dockerized services, monitoring, and remote access over Tailscale. Shell. Active."/></a>
   <a href="https://github.com/Pratham71/Vessel"><img src="assets/card-vessel.svg" width="49%" alt="Vessel: a minimal interactive Java notebook environment. Java. Shipped."/></a>
+  <a href="https://github.com/Pratham71/medical-appointment-system"><img src="assets/card-infirmary.svg" width="49%" alt="medical-appointment-system: college infirmary booking and records with FastAPI, raw SQL on MySQL and Next.js. Python. Shipped."/></a>
+  <a href="https://github.com/Pratham71/YtDownloader"><img src="assets/card-ytdl.svg" width="49%" alt="YtDownloader: YouTube video and MP3 from the terminal, best quality, playlists and batch. Python. Shipped."/></a>
 </p>
+
+## `> cat experience.log`
+
+- **Software development and automation**, Inter Event Management Services, Delhi (Jun to Jul 2026): built IEMS ONE, the company's ERP (FastAPI, Celery, Postgres, Redis, MinIO, Streamlit, Docker behind Caddy), and redesigned the company website.
 
 ## `> cat focus.log`
 
@@ -24,5 +30,5 @@ CS student at BITS Pilani Dubai. I build self-hosted infrastructure, backend ser
 
 ## `> ping me`
 
-[www.prathlab.com](https://www.prathlab.com)
-<!-- email: add once the public address is chosen -->
+- site: [prathlabs.vercel.app](https://prathlabs.vercel.app), a man page with a command prompt (press `:`)
+- mail: [pn.prathamnagpal@gmail.com](mailto:pn.prathamnagpal@gmail.com), usually replying within 24 to 48 hours

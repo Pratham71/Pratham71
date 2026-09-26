@@ -43,6 +43,12 @@ CONTENT = {
                     "lang": "Shell", "status": "active"},
         "vessel": {"name": "Vessel", "desc": "A minimal interactive Java notebook environment.",
                    "lang": "Java", "status": "shipped"},
+        "infirmary": {"name": "medical-appointment-system",
+                      "desc": "College infirmary booking and records: FastAPI, raw SQL on MySQL, Next.js.",
+                      "lang": "Python", "status": "shipped"},
+        "ytdl": {"name": "YtDownloader",
+                 "desc": "YouTube video and MP3 from the terminal: best quality, playlists, batch.",
+                 "lang": "Python", "status": "shipped"},
     },
     "stack": [
         ("build", [("python", "Python"), ("openjdk", "Java"), ("typescript", "TypeScript"), ("fastapi", "FastAPI"),
@@ -353,8 +359,7 @@ def build_all(stats):
     c = CONTENT
     return {
         "header.svg": render_header(c),
-        "card-homelab.svg": render_card(c["projects"]["homelab"]),
-        "card-vessel.svg": render_card(c["projects"]["vessel"]),
+        **{f"card-{key}.svg": render_card(p) for key, p in c["projects"].items()},
         "stack.svg": render_stack(c["stack"]),
         "stats.svg": render_stats(stats),
     }
